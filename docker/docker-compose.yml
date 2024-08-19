@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    command: ["npm", "start"]
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "5000:5000"
